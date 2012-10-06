@@ -95,6 +95,7 @@ public class LearningAlgorithm {
 		
 		double distToNodeSq = 0;
 		for (Node currentNode : som.getSOM()) {		
+			
 			distToNodeSq = this.calculateDistnceSQToBMU(BMUpos, currentNode.getXGrade(), currentNode.getYGrade());
 			
 			double widthSq = Math.pow(this.neighbourhooodRadius,2);
