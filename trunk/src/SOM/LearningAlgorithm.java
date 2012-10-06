@@ -92,10 +92,9 @@ public class LearningAlgorithm {
 		int BMUpos = this.findBestMatchingNode(inputVector);
 		this.calculateNeighbourhooodRadius();
 		
-		Node currentNode = null;
+		
 		double distToNodeSq = 0;
-		for(int n = 0 ; n < som.getSOM().size(); n++){
-			currentNode = som.getSomNode(n);
+		for (Node currentNode : som.getSOM()) {		
 			distToNodeSq = this.calculateDistnceSQToBMU(BMUpos, currentNode.getXGrade(), currentNode.getYGrade());
 			
 			double widthSq = Math.pow(this.neighbourhooodRadius,2);
