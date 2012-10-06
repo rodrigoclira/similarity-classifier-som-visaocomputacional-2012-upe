@@ -9,7 +9,7 @@ public interface IConstants {
 	
 	public static int NUMBEROFWEIGHTS = 8;
 	
-	public static int TOTALOFITERATIONS = 9600;
+	public static int TOTALOFITERATIONS = 1000;
 	
 	public static double STARTLEARNINGRATE = 0.1;
 	
