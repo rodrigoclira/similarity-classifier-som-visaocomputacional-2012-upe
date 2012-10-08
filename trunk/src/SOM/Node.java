@@ -1,11 +1,12 @@
 package SOM;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
 import Util.IConstants;
 
-public class Node {
+public class Node implements Serializable {
 	
 	
 	private double[] weights;
