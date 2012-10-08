@@ -46,27 +46,6 @@ public class LearningAlgorithm {
 	}
 	
 
-	
-	private int findBestMatchingNode(ArrayList<Double> inputVector) {
-		double minDinstance = Double.MAX_VALUE;
-		int minPos = Integer.MAX_VALUE;
-		double distance = 0;
-		Node currentNode = null;
-		
-		for (int n = 0; n < this.som.getSOM().size(); n++) {
-			
-			currentNode = this.som.getSomNode(n);			
-			distance = currentNode.calculateDistance(inputVector);
-			
-			if(distance<minDinstance){
-				minDinstance = distance;
-				minPos = n;
-			}
-		}
-		
-		return minPos;					
-	}
-	
 	public void training(ArrayList<ArrayList<Double>> setOfInputVectors) throws Exception{
 		
 		int randomPos = 0;
@@ -89,7 +68,8 @@ public class LearningAlgorithm {
 		
 		if(inputVector.size() != IConstants.NUMBEROFWEIGHTS) throw new Exception("O tamnho do vetor de entrada é diferente do tamanho do vetor de pesos do nó");
 		
-		int BMUpos = this.findBestMatchingNode(inputVector);
+		int BMUpos = this.som.findBestMatchingNode(inputVector); 
+			
 		this.calculateNeighbourhooodRadius();
 		
 		
