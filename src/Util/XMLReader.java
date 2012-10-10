@@ -105,7 +105,7 @@ public class XMLReader {
 
 		try{
 
-			XMLReader Xml = new XMLReader("/home/rcls/workspace/XMLReader/src/images.xml");
+			XMLReader Xml = new XMLReader("images.xml");
 			ArrayList<Double> temp = Xml.getArrayImages().get(0);
 			
 			for (Double double1 : temp) {
