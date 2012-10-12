@@ -1,4 +1,6 @@
+package Util;
 import java.io.File;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -8,22 +10,38 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.ParserConfigurationException;
+import Classification.Image;
 
-
-
-public class XMLReader {
+public class ImageXMLReader {
 
 	private DocumentBuilderFactory docBuilderFactory;
 	private DocumentBuilder docBuilder;
 	private Document doc;
 	private ArrayList<ArrayList<Double>> arrayImages = new ArrayList<ArrayList<Double>>();
+	private ArrayList<Image> array = new ArrayList<Image>();
+	
 	private boolean normalized = false;
 
-	public XMLReader(String name) throws ParserConfigurationException, IOException, SAXException{
+	public ImageXMLReader(String name) throws ParserConfigurationException, IOException, SAXException{
 		docBuilderFactory = DocumentBuilderFactory.newInstance();
 		docBuilder = docBuilderFactory.newDocumentBuilder();
 		doc = docBuilder.parse(new File(name));
 		this.load();
+	}
+	
+
+	public ArrayList<Image> getImages(){
+		Image img = null;
+		int label = 0;
+		for (int count = 0; count < arrayImages.size() ; count+=1){
+			
+			label = (count/16) + 1;
+			img = new Image(count, label, arrayImages.get(count), 8);
+			array.add(img);
+			
+		}
+		
+		return array;
 	}
 
 	public ArrayList<ArrayList<Double>> getArrayImages(){
@@ -31,7 +49,7 @@ public class XMLReader {
 	}
 
 	public void normalizarArray(double a, double b){
-
+		
 		Double minValues[] = {Double.MAX_VALUE,Double.MAX_VALUE,Double.MAX_VALUE,Double.MAX_VALUE, 
 				Double.MAX_VALUE,Double.MAX_VALUE,Double.MAX_VALUE,Double.MAX_VALUE};
 
@@ -63,9 +81,7 @@ public class XMLReader {
 					newValue = (b - a) * (value - minValues[i])/ (maxValues[i] - minValues[i]) + a;
 					temp.set(i, newValue);
 				}
-
 			}
-
 			normalized = true;
 		}
 
@@ -75,7 +91,7 @@ public class XMLReader {
 		doc.getDocumentElement ().normalize ();
 		NodeList listOfImages = doc.getElementsByTagName("image");
 		int totalImages = listOfImages.getLength();
-		System.out.println("Total de imagens carregadas: "+ totalImages + "imagens." );
+		System.out.println("Total de imagens carregadas: "+ totalImages + " imagens." );
 
 		for (int count = 0; count < totalImages; count+=1){
 			Node firstImageNode = listOfImages.item(count);
@@ -100,32 +116,4 @@ public class XMLReader {
 		}
 
 	}
-
-	public static void main(String[] args) {
-
-		try{
-
-			XMLReader Xml = new XMLReader("images.xml");
-			ArrayList<Double> temp = Xml.getArrayImages().get(0);
-			
-			for (Double double1 : temp) {
-				System.out.print(double1 + " ");
-			}
-			
-			Xml.normalizarArray(0.1, 0);
-			temp = Xml.getArrayImages().get(0);
-			System.out.println("");
-			for (Double double1 : temp) {
-				System.out.print(double1 + " ");
-			}
-
-			
-
-
-		}catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
-	}
-
 }
