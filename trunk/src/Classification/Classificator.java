@@ -7,6 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Vector;
 
 import SOM.LearningAlgorithm;
@@ -15,6 +16,14 @@ import SOM.SOM;
 public class Classificator {
 
 	private SOM som;
+	public SOM getSom() {
+		return som;
+	}
+
+	public void setSom(SOM som) {
+		this.som = som;
+	}
+
 	private LearningAlgorithm learning;
 	
 	
@@ -57,10 +66,10 @@ public class Classificator {
 		int qtd = 0, min=0, max=16;
 		
 		
-		ArrayList<Image> aux =null;
+		List<Image> aux =null;
 		while(max <= dataBase.size()) {
 			
-			 aux = (ArrayList<Image>) dataBase.subList(min, max);
+			 aux = dataBase.subList(min, max);
 			
 			 Collections.shuffle(aux);
 			 qtd = (int) (aux.size()*trainingPerCentSamples);			 
