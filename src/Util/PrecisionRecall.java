@@ -25,6 +25,14 @@ public class PrecisionRecall {
 
 	}
 	
+	public PrecisionRecall (ArrayList<Image> arrayImage, Classificator classificador)
+			throws Exception{
+
+		this.arrayImage = arrayImage;
+		this.classificator = classificador;
+
+	}
+	
 	public void saveResult(String path) throws IOException{
 		
 		FileWriter file = new FileWriter(path);
