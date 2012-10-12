@@ -7,6 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Vector;
 
 import SOM.LearningAlgorithm;
 import SOM.SOM;
@@ -41,10 +42,39 @@ public class Classificator {
 			
 	}
 	
-	public void training(){
-		//TODO implementar lógica de treinamento completo da rede
+	public void training(ArrayList<Image> dataBase, double trainingPercent) throws Exception{
+		
+		ArrayList<Image> trainingSet = this.splitDataBase(dataBase, trainingPercent);
+				
+		this.learning.training(trainingSet);
+						
 	}
 	
+	private ArrayList<Image> splitDataBase(ArrayList<Image> dataBase,
+			double trainingPerCentSamples) {
+		//hardcoded
+		ArrayList<Image> ret = new ArrayList<Image>();
+		int qtd = 0, min=0, max=16;
+		
+		
+		ArrayList<Image> aux =null;
+		while(max <= dataBase.size()) {
+			
+			 aux = (ArrayList<Image>) dataBase.subList(min, max);
+			
+			 Collections.shuffle(aux);
+			 qtd = (int) (aux.size()*trainingPerCentSamples);			 
+			 ret.addAll(aux.subList(0, qtd));
+			 
+			 min+=16;
+			 max+=16;
+		}
+		
+		return ret;
+		
+	
+	}
+
 	public ArrayList<Image> classify(Image searchImage , ArrayList<Image> images){
 		
 		int activatedNeuronPos = this.som.findBestMatchingNode(searchImage.getFeatures());

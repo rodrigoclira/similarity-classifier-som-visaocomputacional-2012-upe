@@ -1,7 +1,10 @@
 package SOM;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
+import Classification.Image;
 import Util.IConstants;
 
 public class LearningAlgorithm {
@@ -9,6 +12,7 @@ public class LearningAlgorithm {
 	private SOM som;
 	private double mapRadius, neighbourhooodRadius, learningRate;
 	public int curretIteration;
+	private int trainingSetSize;
 	
 	public LearningAlgorithm(SOM som){
 		this.som = som;
@@ -17,7 +21,7 @@ public class LearningAlgorithm {
 		this.curretIteration = 0;
 	}
 	private double getTimeConstant(){
-		return  IConstants.TOTALOFITERATIONS/Math.log(mapRadius);
+		return  this.trainingSetSize/Math.log(mapRadius);
 	}
 	
 	private double calculateNeighbourhooodRadius (){
@@ -26,7 +30,7 @@ public class LearningAlgorithm {
 	}
 	
 	private double updateLearningRate(){
-		this.learningRate = IConstants.STARTLEARNINGRATE * Math.exp(-(double)curretIteration/IConstants.TOTALOFITERATIONS);
+		this.learningRate = IConstants.STARTLEARNINGRATE * Math.exp(-(double)curretIteration/this.trainingSetSize);
 		return this.learningRate;
 	}
 	
@@ -46,15 +50,16 @@ public class LearningAlgorithm {
 	}
 	
 
-	public void training(ArrayList<ArrayList<Double>> setOfInputVectors) throws Exception{
+	public void training(ArrayList<Image> setOfTrainingInputs) throws Exception{
 		
-		int randomPos = 0;
 		ArrayList<Double> inputVector = null;
+		this.trainingSetSize = setOfTrainingInputs.size();		
 		
-		while(curretIteration < IConstants.TOTALOFITERATIONS){
-			
-			randomPos = (int)(setOfInputVectors.size() * Math.random());
-			inputVector = setOfInputVectors.get(randomPos);
+		Collections.shuffle(setOfTrainingInputs);		
+				
+		while(curretIteration < this.trainingSetSize){
+								
+			inputVector = setOfTrainingInputs.remove(0).getFeatures();
 			
 			this.epoch(inputVector);
 			
