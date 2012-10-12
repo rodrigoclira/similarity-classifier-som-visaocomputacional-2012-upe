@@ -1,4 +1,8 @@
 package Util;
+import java.io.FilePermission;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +23,25 @@ public class PrecisionRecall {
 		this.arrayImage = arrayImage;
 		classificator = new Classificator(path);
 
+	}
+	
+	public void saveResult(String path) throws IOException{
+		
+		FileWriter file = new FileWriter(path);
+		PrintWriter printWriter = new PrintWriter(file);
+		
+		printWriter.println("Precicision\n");
+		for(Double value : pointsPrecision){
+			printWriter.println(""+value);
+		}
+		
+		printWriter.write("Recall\n");
+		for(Double value : pointsRecall){
+			printWriter.println(""+value);
+		}
+
+		printWriter.flush();
+		printWriter.close();
 	}
 	
 	public ArrayList<Double> getPointsPrecision() {
