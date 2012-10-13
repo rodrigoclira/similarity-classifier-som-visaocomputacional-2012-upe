@@ -18,6 +18,7 @@ public class Node implements Serializable {
 		this.xGrade = xGrade;
 		this.yGrade = yGrade;
 		weights = new double[numWeights];
+		this.numWeights = numWeights;
 		Random random = new Random();  
 		for (int i = 0; i <numWeights; i++) {			
 			
@@ -32,7 +33,7 @@ public class Node implements Serializable {
 	public double calculateDistance(ArrayList<Double> inputVector){
 		double distance = 0;
  
-		for (int i=0; i<this.numWeights; ++i)
+		for (int i=0; i<this.weights.length; ++i)
 		{
 			distance += Math.pow((inputVector.get(i) - weights[i]),2) ;
 		}
@@ -42,7 +43,7 @@ public class Node implements Serializable {
 	
 	public void adjustWeight(ArrayList<Double> inputVector, double influenceFactor, double learningRate){
 		for (int i = 0; i < weights.length; i++) {
-			weights[i] = weights[i] + (influenceFactor * learningRate * (inputVector.get(i)-weights[i])); 
+			weights[i] += influenceFactor * learningRate * (inputVector.get(i)-weights[i]); 
 		}
 	}
 	

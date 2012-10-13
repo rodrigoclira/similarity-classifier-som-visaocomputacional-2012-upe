@@ -1,15 +1,14 @@
 package Simulation;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
 import Classification.Classificator;
 import Classification.Image;
-import SOM.Node;
 import Util.ImageXMLReader;
 import Util.PrecisionRecall;
 
-public class SimulationRun {
+public class ClassificatorTest {
 
 	/**
 	 * @param args
@@ -21,21 +20,21 @@ public class SimulationRun {
 			xml.normalizarArray(0.1, 0.9);
 			ArrayList<Image> dataBase = xml.getImages();
 
-			for (int i = 50; i <= 100; i+=10 ) {
+			Classificator somClassificator = new Classificator();							
+			somClassificator.training((ArrayList<Image>)dataBase.clone(), (100/100.00));
 
-				Classificator somClassificator = new Classificator();				
+			List<Image> test = dataBase.subList(0, 16);
 			
-				somClassificator.training((ArrayList<Image>)dataBase.clone(), (i/100.00));
-				
-				
-				PrecisionRecall pr = new PrecisionRecall(dataBase, somClassificator);
-
-				for (int step = 5; step < 955; step+=5) {
-					pr.run(step, 955);
-					pr.saveResult(resultFolder+i+"_"+step+".txt");
-				}
-
+			int pos = somClassificator.testClassificator(test.get(0));
+			
+			System.out.println("neron:" + pos);
+			for (Image image : test) {
+				System.out.println(somClassificator.testClassificator(image));
 			}
+
+			
+
+
 
 		}catch (Exception e) {
 			e.printStackTrace();
