@@ -86,19 +86,23 @@ public class Classificator {
 
 	public ArrayList<Image> classify(Image searchImage , ArrayList<Image> images){
 		
+		ArrayList<Image> classificatedImages = (ArrayList<Image>)images.clone();
 		int activatedNeuronPos = this.som.findBestMatchingNode(searchImage.getFeatures());
 		int dataBaseImagePos = 0;
 		double distance = 0.0;
 		
-		for (Image currentImage : images) {
+		for (Image currentImage : classificatedImages) {
 			dataBaseImagePos = this.som.findBestMatchingNode(currentImage.getFeatures());
-			distance = this.som.calculateDistanceBetweenGradeNodes(activatedNeuronPos, dataBaseImagePos);
+			distance = this.som.calculateDistanceBetweenGradeNodes(activatedNeuronPos, dataBaseImagePos);			
 			currentImage.setDistanceBySearchImage(distance);
+			
+			currentImage.setNodeActivatedX(this.som.getSomNode(dataBaseImagePos).getXGrade());
+			currentImage.setNodeActivatedY(this.som.getSomNode(dataBaseImagePos).getYGrade());
 		}
 		
-		Collections.sort(images);
+		Collections.sort(classificatedImages);
 		
-		return images;
+		return classificatedImages;
 	}
 	
 	public void saveSOM(String path, String fileName) throws Exception{
@@ -113,6 +117,10 @@ public class Classificator {
 		}catch (Exception e) {
 			throw new Exception("Erro ao tenatar escrever o arquivo da rede serializada\n JavaError: " + e.getMessage());
 		}	
+	}
+	
+	public int testClassificator(Image teste){
+		return this.som.findBestMatchingNode(teste.getFeatures());
 	}
 	
 	

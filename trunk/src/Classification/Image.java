@@ -9,6 +9,7 @@ public class Image implements Comparable<Image> {
 	private ArrayList<Double> features;
 	private int numberOfFeatures;
 	private double distanceBySearchImage;
+	private int nodeActivatedX, nodeActivatedY;
 	
 	
 	
@@ -53,14 +54,38 @@ public class Image implements Comparable<Image> {
 		return distanceBySearchImage;
 	}
 	
+	public int getNodeActivatedX() {
+		return nodeActivatedX;
+	}
+
+	public void setNodeActivatedX(int nodeActivatedX) {
+		this.nodeActivatedX = nodeActivatedX;
+	}
+
+	public int getNodeActivatedY() {
+		return nodeActivatedY;
+	}
+
+	public void setNodeActivatedY(int nodeActivatedY) {
+		this.nodeActivatedY = nodeActivatedY;
+	}
+
 	@Override
 	public int compareTo(Image o) {
 				
 		double dif = this.distanceBySearchImage - o.distanceBySearchImage;
-		return (int)dif;
-		
+		return (int)dif;		
 		
 	}
+
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		Image ret = new Image(this.id, this.label, (ArrayList<Double>)this.features.clone(), this.numberOfFeatures);
+		ret.setDistanceBySearchImage(this.getDistanceBySearchImage());
+		return ret;
+	}
+	
+	
 	
 	
 }
