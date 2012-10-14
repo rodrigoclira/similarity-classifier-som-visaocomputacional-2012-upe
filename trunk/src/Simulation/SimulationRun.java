@@ -24,16 +24,16 @@ public class SimulationRun {
 			for (int i = 50; i <= 100; i+=10 ) {
 
 				Classificator somClassificator = new Classificator();				
-			
-				somClassificator.training((ArrayList<Image>)dataBase.clone(), (i/100.00));
-				
-				
-				PrecisionRecall pr = new PrecisionRecall(dataBase, somClassificator);
 
-				for (int step = 5; step < 955; step+=5) {
-					pr.run(step, 955);
-					pr.saveResult(resultFolder+i+"_"+step+".txt");
-				}
+				somClassificator.training((ArrayList<Image>)dataBase.clone(), (i/100.00));
+
+
+				PrecisionRecall pr = new PrecisionRecall(dataBase, somClassificator);
+				int step = 5;
+				//				for (int step = 5; step < 955; step+=5) {
+				pr.run(step, 955);
+				pr.saveResult(resultFolder+i+"_"+step+".txt");
+				//				}
 
 			}
 
