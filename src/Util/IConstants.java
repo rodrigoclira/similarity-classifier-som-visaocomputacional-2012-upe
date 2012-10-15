@@ -11,6 +11,6 @@ public interface IConstants {
 			
 	public static double STARTLEARNINGRATE = 0.1;
 	
-	public static int TOTALOFITERATIONS = 10000;
+	public static int TOTALOFITERATIONS = 1000;
 	
 }

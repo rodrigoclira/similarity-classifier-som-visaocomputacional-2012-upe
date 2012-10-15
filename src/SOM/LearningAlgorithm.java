@@ -32,7 +32,7 @@ public class LearningAlgorithm {
 
 	public void training(ArrayList<Image> setOfTrainingInputs) throws Exception{
 		ArrayList<Double> inputVector = null;
-		//this.trainingSetSize = setOfTrainingInputs.size();					
+				
 
 		while(curretIteration < IConstants.TOTALOFITERATIONS){
 			Collections.shuffle(setOfTrainingInputs);

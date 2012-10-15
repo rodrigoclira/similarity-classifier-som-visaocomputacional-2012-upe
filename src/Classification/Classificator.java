@@ -95,9 +95,7 @@ public class Classificator {
 			dataBaseImagePos = this.som.findBestMatchingNode(currentImage.getFeatures());
 			distance = this.som.calculateDistanceBetweenGradeNodes(activatedNeuronPos, dataBaseImagePos);			
 			currentImage.setDistanceBySearchImage(distance);
-			
-			currentImage.setNodeActivatedX(this.som.getSomNode(dataBaseImagePos).getXGrade());
-			currentImage.setNodeActivatedY(this.som.getSomNode(dataBaseImagePos).getYGrade());
+						
 		}
 		
 		Collections.sort(classificatedImages);
