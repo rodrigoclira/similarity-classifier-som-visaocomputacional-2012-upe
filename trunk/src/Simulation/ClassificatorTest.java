@@ -1,6 +1,7 @@
 package Simulation;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import Classification.Classificator;
@@ -23,19 +24,16 @@ public class ClassificatorTest {
 			Classificator somClassificator = new Classificator();							
 			somClassificator.training((ArrayList<Image>)dataBase.clone(), (100/100.00));
 
-			List<Image> test = dataBase.subList(0, 16);
+			Image query = dataBase.get(0);
+			Collections.shuffle(dataBase);
+		
+			ArrayList<Image> result = somClassificator.classify(query, dataBase);
 			
-			int pos = somClassificator.testClassificator(test.get(0));
-			
-			System.out.println("neron:" + pos);
-			for (Image image : test) {
-				System.out.println(somClassificator.testClassificator(image));
-			}
+			for (Image image : result) {
+				System.out.println("ID: " + image.getId() + " Label: "+ image.getLabel() + " distance: " + image.getDistanceBySearchImage());
+			}			
 
 			
-
-
-
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
