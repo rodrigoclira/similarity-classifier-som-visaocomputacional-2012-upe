@@ -32,20 +32,18 @@ public class LearningAlgorithm {
 
 	public void training(ArrayList<Image> setOfTrainingInputs) throws Exception{
 		ArrayList<Double> inputVector = null;
-				
-
-		while(curretIteration < IConstants.TOTALOFITERATIONS){
-			Collections.shuffle(setOfTrainingInputs);
-
-			for (Image sample : setOfTrainingInputs) {
-				inputVector = sample.getFeatures();
-
-				int neuronPos = this.epoch(inputVector);		
-				
-			}			
-			curretIteration++;
-		}
+			
 		
+		this.totalOfIterations = setOfTrainingInputs.size();
+		Collections.shuffle(setOfTrainingInputs);
+		
+		for (Image sample : setOfTrainingInputs) {
+			inputVector = sample.getFeatures();
+
+			int neuronPos = this.epoch(inputVector);		
+			
+			curretIteration++;
+		}			
 
 	}
 
