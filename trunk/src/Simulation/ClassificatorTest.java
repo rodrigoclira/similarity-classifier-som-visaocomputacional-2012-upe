@@ -3,6 +3,7 @@ package Simulation;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Timer;
 
 import Classification.Classificator;
 import Classification.Image;
@@ -16,6 +17,7 @@ public class ClassificatorTest {
 	 */
 	public static void main(String[] args) {
 		try{
+			
 			String resultFolder = "src//Results//"; 
 			ImageXMLReader xml = new ImageXMLReader("src//xml//images.xml");
 			xml.normalizarArray(0.1, 0.9);
@@ -26,12 +28,15 @@ public class ClassificatorTest {
 
 			Image query = dataBase.get(0);
 			Collections.shuffle(dataBase);
-		
+			double t0 = System.currentTimeMillis();
+			
 			ArrayList<Image> result = somClassificator.classify(query, dataBase);
 			
 			for (Image image : result) {
 				System.out.println("ID: " + image.getId() + " Label: "+ image.getLabel() + " distance: " + image.getDistanceBySearchImage());
-			}			
+			}
+			
+			System.out.println(System.currentTimeMillis() - t0);
 
 			
 		}catch (Exception e) {

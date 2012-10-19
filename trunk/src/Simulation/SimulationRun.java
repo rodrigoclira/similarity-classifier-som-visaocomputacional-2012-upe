@@ -21,12 +21,13 @@ public class SimulationRun {
 			xml.normalizarArray(0.1, 0.9);
 			ArrayList<Image> dataBase = xml.getImages();
 
-			for (int i = 50; i <= 100; i+=10 ) {
+			for (int i = 100; i <= 100; i+=10 ) {
 
 				Classificator somClassificator = new Classificator();				
 
 				somClassificator.training((ArrayList<Image>)dataBase.clone(), (i/100.00));
 
+				System.out.println("start precision recall");
 
 				PrecisionRecall pr = new PrecisionRecall(dataBase, somClassificator);
 				int step = 5;
