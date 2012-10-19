@@ -53,9 +53,10 @@ public class Classificator {
 	
 	public void training(ArrayList<Image> dataBase, double trainingPercent) throws Exception{
 		
-		ArrayList<Image> trainingSet = this.splitDataBase(dataBase, trainingPercent);
+		//ArrayList<Image> trainingSet = this.splitDataBase(dataBase, trainingPercent);
 				
-		this.learning.training(trainingSet);
+		//this.learning.training(trainingSet);
+		this.learning.training(dataBase);
 						
 	}
 	

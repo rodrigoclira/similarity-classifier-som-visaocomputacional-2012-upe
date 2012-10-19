@@ -73,6 +73,12 @@ public class Image implements Comparable<Image> {
 		ret.setDistanceBySearchImage(this.getDistanceBySearchImage());
 		return ret;
 	}
+
+	@Override
+	public boolean equals(Object obj) {		
+		return (this.getId() == ((Image)obj).getId());
+	}
+	
 	
 	
 	
