@@ -27,9 +27,16 @@ public class SOM implements Serializable {
 	public double calculateDistanceBetweenGradeNodes(int Node1Pos, int Nodo2Pos){
 		Node node1 = this.getSomNode(Node1Pos);
 		Node node2 = this.getSomNode(Nodo2Pos);
-		
+		/*
 		return Math.sqrt( Math.pow((node1.getXGrade() - node2.getXGrade()),2) +
 		Math.pow((node1.getYGrade() - node2.getYGrade()), 2));
+		*/
+		double distance = 0.0;
+		for (int i = 0; i < node1.getWeights().length; i++) {
+			distance += Math.pow((node1.getWeights()[i] - node2.getWeights()[i]), 2);
+			
+		}
+		return Math.sqrt(distance);
 	}
 
 	public int findBestMatchingNode(ArrayList<Double> inputVector) {
