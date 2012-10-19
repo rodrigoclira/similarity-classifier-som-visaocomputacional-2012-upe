@@ -1,5 +1,4 @@
 package Util;
-import java.io.FilePermission;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,16 +16,7 @@ public class PrecisionRecall {
 	private ArrayList<Double> pointsPrecision;
 	private ArrayList<Double> pointsRecall;
 
-	public PrecisionRecall (ArrayList<Image> arrayImage, String path)
-			throws Exception{
-
-		this.arrayImage = arrayImage;
-		classificator = new Classificator(path);
-
-	}
-	
-	public PrecisionRecall (ArrayList<Image> arrayImage, Classificator classificador)
-			throws Exception{
+	public PrecisionRecall (ArrayList<Image> arrayImage, Classificator classificador){
 
 		this.arrayImage = arrayImage;
 		this.classificator = classificador;
@@ -85,12 +75,11 @@ public class PrecisionRecall {
 			accPrecision = 0;
 			accRecall = 0;
 			
-			for(int img = 0 ; img < arrayImage.size(); img+=1){
+			for(int img = 0; img < arrayImage.size(); img+=1){
 				count=0;	
 				Image image = arrayImage.get(img);
 				tempList = classificator.classify(image, arrayImage);
 
-				//Contar os a quantidade de acerto				
 				bestImages = tempList.subList(0, _step+1); // gambilight
 				relevant = 0;
 				position = 0;
