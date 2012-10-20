@@ -29,11 +29,11 @@ public class SimulationRun {
 
 				System.out.println("start precision recall");
 
-				PrecisionRecall pr = new PrecisionRecall(dataBase, somClassificator);
+				//PrecisionRecall pr = new PrecisionRecall(dataBase, somClassificator);
 				int step = 5;
 				//				for (int step = 5; step < 955; step+=5) {
-				pr.run(step, 955);
-				pr.saveResult(resultFolder+i+"_"+step+".txt");
+//				pr.run(step, 955);
+//				pr.saveResult(resultFolder+i+"_"+step+".txt");
 				//				}
 
 			}
