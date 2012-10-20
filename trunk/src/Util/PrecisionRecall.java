@@ -10,29 +10,50 @@ import Classification.Image;
 
 
 public class PrecisionRecall {
-	
-	private Classificator classificator;
-	private ArrayList<Image> arrayImage;
+
 	private ArrayList<Double> pointsPrecision;
 	private ArrayList<Double> pointsRecall;
 
-	public PrecisionRecall (ArrayList<Image> arrayImage, Classificator classificador){
 
-		this.arrayImage = arrayImage;
-		this.classificator = classificador;
+	public PrecisionRecall(){
+		
+		pointsPrecision = new ArrayList<Double>();
+		pointsRecall = new ArrayList<Double>();
+		
+		for(int i = 0; i<191; i+=1){
+			pointsPrecision.add(0.0);
+			pointsRecall.add(0.0);
+		}
 
 	}
 	
+	public void temp(){
+		double value = 0;
+		for(int i = 0 ; i < pointsPrecision.size(); i+=1){
+			
+			value = pointsPrecision.get(i);
+			value = value/960;
+			pointsPrecision.set(i, value);
+			
+			value = pointsRecall.get(i);
+			value = value/960;
+			pointsRecall.set(i, value);
+		}
+	}
+	
+	
 	public void saveResult(String path) throws IOException{
 		
+		temp();
+
 		FileWriter file = new FileWriter(path);
 		PrintWriter printWriter = new PrintWriter(file);
-		
+
 		printWriter.println("Precicision\n");
 		for(Double value : pointsPrecision){
 			printWriter.println(""+value);
 		}
-		
+
 		printWriter.write("Recall\n");
 		for(Double value : pointsRecall){
 			printWriter.println(""+value);
@@ -41,7 +62,7 @@ public class PrecisionRecall {
 		printWriter.flush();
 		printWriter.close();
 	}
-	
+
 	public ArrayList<Double> getPointsPrecision() {
 		return pointsPrecision;
 	}
@@ -57,55 +78,37 @@ public class PrecisionRecall {
 	public void setPointsRecall(ArrayList<Double> pointsRecall) {
 		this.pointsRecall = pointsRecall;
 	}
-	
-	public void run(int step, int endpoint){
-		pointsPrecision = new ArrayList<Double>();
-		pointsRecall = new ArrayList<Double>();
-		int _step = step;
-		int count = 0;
-		List<Image> bestImages;
-		ArrayList<Image> tempList;
+
+	public void run(int step, int endpoint, Image image, ArrayList<Image> result){
 		int relevant = 0; 
-		double accPrecision = 0;
-		double accRecall = 0;
-		int position = 0;
+		double stepPrecision = 0;
+		double stepRecall = 0;
+		double value = 0;
+		Image resultImage;
+		int label = image.getLabel();
+		int count = 0;
 		
-		while (_step < endpoint){
-			
-			accPrecision = 0;
-			accRecall = 0;
-			
-			for(int img = 0; img < arrayImage.size(); img+=1){
-				count=0;	
-				Image image = arrayImage.get(img);
-				tempList = classificator.classify(image, arrayImage);
+		for(int i = 1; i<= endpoint - step; i+=1 ){	
 
-				bestImages = tempList.subList(0, _step+1); // gambilight
-				relevant = 0;
-				position = 0;
-				
-				while(count<_step){
+			resultImage = result.get(i - 1);
 
-					if (image.getId() == bestImages.get(position).getId()){
-						position+=1;
-						continue;
-					}else{
-
-						if (image.getLabel() == bestImages.get(position).getLabel()){
-							relevant+=1;
-						}
-					}
-					position+=1;
-					count+=1;
-				}
-				accPrecision += (double)relevant/_step;
-				accRecall += (double) relevant/15; //HARDCODE!
+			if (resultImage.getLabel() == label){
+				relevant += 1;
 			}
-			
-			pointsPrecision.add((double)accPrecision/arrayImage.size());
-			pointsRecall.add((double)accRecall/arrayImage.size());
-			
-			_step+=step;
+
+			if (i % 5 == 0){
+				stepPrecision = (double) relevant/i;
+				stepRecall = (double) relevant/15; //HARDCODE!
+				
+				value = pointsPrecision.get(count);
+				value += stepPrecision;
+				pointsPrecision.set(count, value);
+				
+				value = pointsRecall.get(count);
+				value += stepRecall;
+				pointsRecall.set(count, value);
+				count+=1;
+			}
 		}
 	}
 }
