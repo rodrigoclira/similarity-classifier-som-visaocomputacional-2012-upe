@@ -15,7 +15,7 @@ public class SOM implements Serializable {
 	
 	public static int MAPWIDTH = 10;
 	public static int MAPHEIGHT = 6;
-	
+	public static int NUMBEROFWEIGHTS = 20;
 	
 	
 	public SOM(ArrayList<double[]> dataSet){
@@ -28,7 +28,7 @@ public class SOM implements Serializable {
 		for (int l = 0; l <  this.mapHeight; l++)
 		{
 			for (int c = 0; c <  this.mapWidth; c++){
-				Node node = new Node(l, c, IConstants.NUMBEROFWEIGHTS);
+				Node node = new Node(l, c,NUMBEROFWEIGHTS);
 				node.setWeights(weigthsGrid[l+1][c+1]);
 				this.SOM.add(node);
 			}
@@ -43,7 +43,7 @@ public class SOM implements Serializable {
 		for (int y = 0; y <  this.mapHeight; y++)
 		{
 			for (int x = 0; x <  this.mapWidth; x++){
-				Node node = new Node(x, y, IConstants.NUMBEROFWEIGHTS);
+				Node node = new Node(x, y, NUMBEROFWEIGHTS);
 				this.SOM.add(node);
 			}
 		}		
