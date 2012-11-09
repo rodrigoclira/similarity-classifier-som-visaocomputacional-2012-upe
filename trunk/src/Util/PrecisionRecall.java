@@ -11,39 +11,52 @@ import Classification.Image;
 
 public class PrecisionRecall {
 
+	private int qtdImages;
 	private ArrayList<Double> pointsPrecision;
 	private ArrayList<Double> pointsRecall;
 
 
 	public PrecisionRecall(){
-		
+
 		pointsPrecision = new ArrayList<Double>();
 		pointsRecall = new ArrayList<Double>();
-		
+
 		for(int i = 0; i<191; i+=1){
 			pointsPrecision.add(0.0);
 			pointsRecall.add(0.0);
 		}
 
 	}
-	
+
+	public PrecisionRecall(int qtdImages){
+
+		pointsPrecision = new ArrayList<Double>();
+		pointsRecall = new ArrayList<Double>();
+
+		for(int i = 0; i<191; i+=1){
+			pointsPrecision.add(0.0);
+			pointsRecall.add(0.0);
+		}
+
+	}
+
 	public void temp(){
 		double value = 0;
 		for(int i = 0 ; i < pointsPrecision.size(); i+=1){
-			
+
 			value = pointsPrecision.get(i);
 			value = value/960;
 			pointsPrecision.set(i, value);
-			
+
 			value = pointsRecall.get(i);
 			value = value/960;
 			pointsRecall.set(i, value);
 		}
 	}
-	
-	
-	public void saveResult(String path) throws IOException{
-		
+
+
+	public void saveResult(String path, double acuracyTax) throws IOException{
+
 		temp();
 
 		FileWriter file = new FileWriter(path);
@@ -54,10 +67,12 @@ public class PrecisionRecall {
 			printWriter.println(""+value);
 		}
 
-		printWriter.write("Recall\n");
+		printWriter.write("\nRecall\n");
 		for(Double value : pointsRecall){
 			printWriter.println(""+value);
 		}
+
+		printWriter.write("\nAcuracyTax: " + acuracyTax);
 
 		printWriter.flush();
 		printWriter.close();
@@ -87,7 +102,7 @@ public class PrecisionRecall {
 		Image resultImage;
 		int label = image.getLabel();
 		int count = 0;
-		
+
 		for(int i = 1; i<= endpoint - step; i+=1 ){	
 
 			resultImage = result.get(i - 1);
@@ -99,11 +114,11 @@ public class PrecisionRecall {
 			if (i % 5 == 0){
 				stepPrecision = (double) relevant/i;
 				stepRecall = (double) relevant/15; //HARDCODE!
-				
+
 				value = pointsPrecision.get(count);
 				value += stepPrecision;
 				pointsPrecision.set(count, value);
-				
+
 				value = pointsRecall.get(count);
 				value += stepRecall;
 				pointsRecall.set(count, value);

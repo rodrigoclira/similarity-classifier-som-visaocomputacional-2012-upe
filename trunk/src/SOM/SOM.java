@@ -3,17 +3,42 @@ package SOM;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import Kmeans.Group;
+import Kmeans.KMeans;
 import Util.IConstants;
+import Util.Util;
 
 public class SOM implements Serializable {
 	
 	private ArrayList<Node> SOM;
 	private int mapWidth, mapHeight;	
 	
+	public static int MAPWIDTH = 10;
+	public static int MAPHEIGHT = 6;
+	
+	
+	
+	public SOM(ArrayList<double[]> dataSet){
+		this.mapWidth = MAPWIDTH;
+		this.mapHeight = MAPHEIGHT; 
+		this.SOM = new ArrayList<Node>();
+		InitializationMethod init = new InitializationMethod();
+		double[][][] weigthsGrid = init.execute(dataSet, this.mapHeight, this.mapWidth);					
+		
+		for (int l = 0; l <  this.mapHeight; l++)
+		{
+			for (int c = 0; c <  this.mapWidth; c++){
+				Node node = new Node(l, c, IConstants.NUMBEROFWEIGHTS);
+				node.setWeights(weigthsGrid[l+1][c+1]);
+				this.SOM.add(node);
+			}
+		}		
+	}
+	
 	
 	public SOM(){
-		this.mapWidth = IConstants.MAPWIDTH;
-		this.mapHeight = IConstants.MAPHEIGHT;
+		this.mapWidth = MAPWIDTH;
+		this.mapHeight = MAPHEIGHT; 
 		this.SOM = new ArrayList<Node>();
 		for (int y = 0; y <  this.mapHeight; y++)
 		{
@@ -27,17 +52,16 @@ public class SOM implements Serializable {
 	public double calculateDistanceBetweenGradeNodes(int Node1Pos, int Nodo2Pos){
 		Node node1 = this.getSomNode(Node1Pos);
 		Node node2 = this.getSomNode(Nodo2Pos);
-		/*
-		return Math.sqrt( Math.pow((node1.getXGrade() - node2.getXGrade()),2) +
-		Math.pow((node1.getYGrade() - node2.getYGrade()), 2));
-		*/
+				
+		
 		double distance = 0.0;
 		for (int i = 0; i < node1.getWeights().length; i++) {
 			distance += Math.pow((node1.getWeights()[i] - node2.getWeights()[i]), 2);
 			
 		}
 		return Math.sqrt(distance);
-	}
+		
+}
 
 	public int findBestMatchingNode(ArrayList<Double> inputVector) {
 		double minDinstance = Double.MAX_VALUE;

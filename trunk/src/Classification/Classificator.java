@@ -16,6 +16,9 @@ import SOM.SOM;
 public class Classificator {
 
 	private SOM som;
+	private LearningAlgorithm learning;
+	private double acuracyTax;
+	
 	public SOM getSom() {
 		return som;
 	}
@@ -24,12 +27,25 @@ public class Classificator {
 		this.som = som;
 	}
 
-	private LearningAlgorithm learning;
-	
+	public Classificator(ArrayList<Image> dataSet){
+		ArrayList<double[]> dataSetValues = new ArrayList<double[]>();
+		for (Image img : dataSet) {
+			double[] values = new double[img.getFeatures().size()];
+			for (int i = 0; i < values.length; i++) {
+				values[i] = img.getFeatures().get(i).doubleValue();				
+			}			
+			dataSetValues.add(values);
+		}
+		
+		this.som = new SOM(dataSetValues);
+		this.learning = new LearningAlgorithm(this.som);
+		
+	}
 	
 	public Classificator(){
 		this.som = new SOM();
 		this.learning = new LearningAlgorithm(this.som);
+		
 	}
 	
 	public Classificator(String path) throws Exception{
@@ -91,17 +107,36 @@ public class Classificator {
 		int activatedNeuronPos = this.som.findBestMatchingNode(searchImage.getFeatures());
 		int dataBaseImagePos = 0;
 		double distance = 0.0;
+		double hitCount = 0.0;
+		double classificationCount = 0.0;
 		
 		for (Image currentImage : classificatedImages) {
 			dataBaseImagePos = this.som.findBestMatchingNode(currentImage.getFeatures());
 			distance = this.som.calculateDistanceBetweenGradeNodes(activatedNeuronPos, dataBaseImagePos);			
 			currentImage.setDistanceBySearchImage(distance);
+			
+			if(searchImage.getLabel() == currentImage.getLabel())
+			{
+				if(distance == 0.0)
+					hitCount++;
+			}
+			else{
+				if(distance > 0)
+					hitCount++;
+			}
 						
+			classificationCount++;
 		}
 		
 		Collections.sort(classificatedImages);
 		
+		this.acuracyTax = (hitCount/classificationCount);
+		
 		return classificatedImages;
+	}
+	
+	public double getAcuracyTax(){
+		return acuracyTax;
 	}
 	
 	public void saveSOM(String path, String fileName) throws Exception{
