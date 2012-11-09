@@ -50,7 +50,7 @@ public class LearningAlgorithm {
 	private int epoch(ArrayList<Double> inputVector) throws Exception{
 
 
-		if(inputVector.size() != IConstants.NUMBEROFWEIGHTS) throw new Exception("O tamnho do vetor de entrada é diferente do tamanho do vetor de pesos do nó");
+		if(inputVector.size() != som.getSomNode(0).getNumWeights()) throw new Exception("O tamnho do vetor de entrada é diferente do tamanho do vetor de pesos do nó");
 
 		//acha o nó com menor distância euclidiana
 		int BMUpos = this.som.findBestMatchingNode(inputVector); 

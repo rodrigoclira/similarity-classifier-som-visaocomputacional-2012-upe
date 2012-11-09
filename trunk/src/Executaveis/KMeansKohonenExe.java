@@ -1,24 +1,22 @@
 package Executaveis;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import Classification.Classificator;
 import Classification.Image;
 import SOM.SOM;
-import Util.IConstants;
 import Util.ImageXMLReader;
 import Util.PrecisionRecall;
 
-public class KohonenSurfEXE {
+public class KMeansKohonenExe {
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		try{
-			Scanner scanner = new Scanner( System.in ); 
+			Scanner scanner = new Scanner( System.in );
 			
 			System.out.println("Tamanho do mapa (inteiro x => x*x) ?");			
 			SOM.MAPWIDTH = SOM.MAPHEIGHT = Integer.parseInt(scanner.nextLine());
@@ -43,12 +41,12 @@ public class KohonenSurfEXE {
 
 			for (Image image : dataBase) {
 
-				System.out.println("************Kohonen* search for image: " + image.getId());
+				System.out.println("************* search for image: " + image.getId());
 
 				ArrayList<Image> partialImageSet = (ArrayList<Image>)dataBase.clone();
 				partialImageSet.remove(image);
 
-				Classificator somClassificator = new Classificator();							
+				Classificator somClassificator = new Classificator(partialImageSet);							
 				somClassificator.training((ArrayList<Image>)partialImageSet.clone(), (100/100.00));
 
 				//sem shuffle os resultados ficam super foda
