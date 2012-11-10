@@ -11,7 +11,7 @@ import Util.PrecisionRecall;
 
 public class SetUpSimulation {
 
-	
+	//teste do kmeans para melhorar o classificador kohonen
 	public static void main(String[] args) {
 		try{
 			double acuracyTax = 0.0;
@@ -37,6 +37,7 @@ public class SetUpSimulation {
 				
 				SOM.MAPHEIGHT = mapsize;
 				SOM.MAPWIDTH = mapsize;
+				SOM.NUMBEROFWEIGHTS = 8;
 
 				System.out.println("****************************** Map SIze = "+ mapsize + " x " + mapsize);
 				System.out.println("****************************** Map SIze = "+ mapsize + " x " + mapsize);

@@ -6,6 +6,7 @@ import jminhep.cluster.Partition;
 
 public class KMeansTeste {
 
+	//classe para testar o kmeans
 	public static void main(String argv[]) {
 
 		DataHolder data = new DataHolder("Example");
