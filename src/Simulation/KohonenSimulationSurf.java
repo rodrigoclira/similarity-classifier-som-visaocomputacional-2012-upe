@@ -11,6 +11,7 @@ import Util.PrecisionRecall;
 
 public class KohonenSimulationSurf {
 
+	//classe para simular kohonen com o surf
 	/**
 	 * @param args
 	 */
@@ -23,7 +24,7 @@ public class KohonenSimulationSurf {
 			ImageXMLReader xml = new ImageXMLReader("src//xml//imagesSurf.xml");
 			xml.normalizarArray(0.1, 0.9);
 			ArrayList<Image> dataBase = xml.getImages();
-
+			int qtdImages = dataBase.size();
 			Double precision[] = new Double[191];
 			Double recall[] = new Double[191];
 			PrecisionRecall pr = new PrecisionRecall();
@@ -32,6 +33,9 @@ public class KohonenSimulationSurf {
 
 			SOM.MAPHEIGHT = 12;
 			SOM.MAPWIDTH = 12;
+			SOM.NUMBEROFWEIGHTS = 20;
+			//SOM.NUMBEROFWEIGHTS = 60;
+			//SOM.NUMBEROFWEIGHTS = 100;
 
 			
 
@@ -53,7 +57,7 @@ public class KohonenSimulationSurf {
 				acuracyTax += somClassificator.getAcuracyTax();
 				count++;
 
-				pr.run(5, 8425, image, result);
+				pr.run(5, qtdImages, image, result);
 				//fazer calculo do precision recall
 				//salvar resultados
 

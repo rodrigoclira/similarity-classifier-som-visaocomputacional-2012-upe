@@ -13,6 +13,7 @@ import SOM.SOM;
 
 public class ClassificatorTest {
 
+	//simulação de kohonen com as características da primeira parte
 	/**
 	 * @param args
 	 */
@@ -34,6 +35,7 @@ public class ClassificatorTest {
 
 			SOM.MAPHEIGHT = 12;
 			SOM.MAPWIDTH = 12;
+			SOM.NUMBEROFWEIGHTS = 8;
 
 			
 
