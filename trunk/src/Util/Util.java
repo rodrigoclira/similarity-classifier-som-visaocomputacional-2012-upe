@@ -2,6 +2,8 @@ package Util;
 
 import java.util.ArrayList;
 
+import Classification.Image;
+
 public class Util {
 	
 	public static double euclidianDistance(double[] cordinate1, double[] cordinate2){
@@ -16,12 +18,16 @@ public class Util {
 
 	}
 	
-	public static Integer[] contarClasse(ArrayList<> arrayImages){
+	public static int[] contarClasse(ArrayList<Image> arrayImages){
 		
-		Integer qtdClasse[] = new Integer(arrayImages.get(arrayImages.size() - 1));
+		int ultimaImagem = arrayImages.size()-1;
+		int quantidadeClasse[] = new int[arrayImages.get(ultimaImagem).getLabel()+1];
 		
 		for(Image img : arrayImages){
+			quantidadeClasse[img.getLabel()]+=1;
 		}
+		
+		return quantidadeClasse;
 	}
 	
 }

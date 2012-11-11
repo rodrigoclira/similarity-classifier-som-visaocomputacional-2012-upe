@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Classification.Classificator;
+import Classification.Image;
 
 
 public class PrecisionRecall {
@@ -35,11 +36,11 @@ public class PrecisionRecall {
 		for(int i = 0 ; i < pointsPrecision.size(); i+=1){
 
 			value = pointsPrecision.get(i);
-			value = value/qtdPontos;
+			value = value/qtdImages;
 			pointsPrecision.set(i, value);
 
 			value = pointsRecall.get(i);
-			value = value/qtdPontos;
+			value = value/qtdImages;
 			pointsRecall.set(i, value);
 		}
 	}
@@ -84,7 +85,7 @@ public class PrecisionRecall {
 		this.pointsRecall = pointsRecall;
 	}
 
-	public void run(int step, int endpoint, Image image, ArrayList<Image> result){
+	public void run(int step, int endpoint, Image image, ArrayList<Image> result, int[] quantidadeElemento){
 		int relevant = 0; 
 		double stepPrecision = 0;
 		double stepRecall = 0;
@@ -92,7 +93,8 @@ public class PrecisionRecall {
 		Image resultImage;
 		int label = image.getLabel();
 		int count = 0;
-
+		int totalElementos = quantidadeElemento[image.getLabel()];
+		
 		for(int i = 1; i<= endpoint - step; i+=1 ){	
 
 			resultImage = result.get(i - 1);
@@ -103,7 +105,7 @@ public class PrecisionRecall {
 
 			if (i % 5 == 0){
 				stepPrecision = (double) relevant/i;
-				stepRecall = (double) relevant/15;  //@TODO something
+				stepRecall = (double) relevant/totalElementos;  //@TODO something
 
 				value = pointsPrecision.get(count);
 				value += stepPrecision;

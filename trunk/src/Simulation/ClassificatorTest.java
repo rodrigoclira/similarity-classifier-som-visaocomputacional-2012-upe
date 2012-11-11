@@ -25,10 +25,11 @@ public class ClassificatorTest {
 			String resultFolder = "src//Results//"; 
 			ImageXMLReader xml = new ImageXMLReader("src//xml//images.xml");
 			xml.normalizarArray(0.1, 0.9);
-			ArrayList<java.awt.Image> dataBase = xml.getImages();
+			ArrayList<Image> dataBase = xml.getImages();
 			int qtdImagens = dataBase.size();
 			PrecisionRecall pr = new PrecisionRecall(qtdImagens);
 			double t0 = System.currentTimeMillis();
+			int histogramaClasse[] = Util.Util.contarClasse(dataBase);
 
 
 			SOM.MAPHEIGHT = 12;
@@ -55,7 +56,7 @@ public class ClassificatorTest {
 				acuracyTax += somClassificator.getAcuracyTax();
 				count++;
 
-				pr.run(5, qtdImagens, image, result);
+				pr.run(5, qtdImagens, image, result, histogramaClasse);
 				//fazer calculo do precision recall
 				//salvar resultados
 
