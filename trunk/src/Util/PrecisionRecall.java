@@ -16,24 +16,15 @@ public class PrecisionRecall {
 	private ArrayList<Double> pointsRecall;
 
 
-	public PrecisionRecall(){
-
-		pointsPrecision = new ArrayList<Double>();
-		pointsRecall = new ArrayList<Double>();
-
-		for(int i = 0; i<191; i+=1){
-			pointsPrecision.add(0.0);
-			pointsRecall.add(0.0);
-		}
-
-	}
 
 	public PrecisionRecall(int qtdImages){
 
 		pointsPrecision = new ArrayList<Double>();
 		pointsRecall = new ArrayList<Double>();
-
-		for(int i = 0; i<191; i+=1){
+		this.qtdImages = qtdImages;
+		int qtdPontos = (qtdImages / 5) - 1;
+		
+		for(int i = 0; i<qtdPontos; i+=1){
 			pointsPrecision.add(0.0);
 			pointsRecall.add(0.0);
 		}
@@ -45,11 +36,11 @@ public class PrecisionRecall {
 		for(int i = 0 ; i < pointsPrecision.size(); i+=1){
 
 			value = pointsPrecision.get(i);
-			value = value/960;
+			value = value/qtdPontos;
 			pointsPrecision.set(i, value);
 
 			value = pointsRecall.get(i);
-			value = value/960;
+			value = value/qtdPontos;
 			pointsRecall.set(i, value);
 		}
 	}
@@ -113,7 +104,7 @@ public class PrecisionRecall {
 
 			if (i % 5 == 0){
 				stepPrecision = (double) relevant/i;
-				stepRecall = (double) relevant/15; //HARDCODE!
+				stepRecall = (double) relevant/15;  //@TODO something
 
 				value = pointsPrecision.get(count);
 				value += stepPrecision;
