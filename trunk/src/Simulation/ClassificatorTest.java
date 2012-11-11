@@ -22,8 +22,8 @@ public class ClassificatorTest {
 			double acuracyTax = 0.0;
 			int count = 0;
 
-			String resultFolder = "src//Results//"; 
-			ImageXMLReader xml = new ImageXMLReader("src//xml//images.xml");
+			String resultFolder = "src"+File.separator+"Results"+File.separator; 
+			ImageXMLReader xml = new ImageXMLReader("src"+File.separator+"xml"+File.separator+"images.xml");
 			xml.normalizarArray(0.1, 0.9);
 			ArrayList<Image> dataBase = xml.getImages();
 			int qtdImagens = dataBase.size();
