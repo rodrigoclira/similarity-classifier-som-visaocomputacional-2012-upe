@@ -17,14 +17,15 @@ public class SetUpSimulation {
 			double acuracyTax = 0.0;
 			int count = 0;
 			
-			String resultFolder = "src//Results//"; 
+			String resultFolder = "src"+File.separator+"Results"+File.separator; 
 			
-			ImageXMLReader xml = new ImageXMLReader("src//xml//images.xml");
+			ImageXMLReader xml = new ImageXMLReader("src"+File.separator+"xml"+File.separator+"images.xml");
 			
 			xml.normalizarArray(0.1, 0.9);
 			ArrayList<Image> dataBase = xml.getImages();
 			int qtdImages = dataBase.size();
-			
+			int histogramaClasse[] = Util.Util.contarClasse(dataBase);
+
 			for(int mapsize = 4 ; mapsize <= 12 ; mapsize+=1){
 				
 				
@@ -59,7 +60,7 @@ public class SetUpSimulation {
 					acuracyTax += somClassificator.getAcuracyTax();
 					count++;
 					
-					pr.run(5, qtdImages, image, result);
+					pr.run(5, qtdImages, image, result, histogramaClasse);
 					//fazer calculo do precision recall
 					//salvar resultados
 

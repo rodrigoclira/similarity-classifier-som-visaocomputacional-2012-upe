@@ -39,6 +39,7 @@ public class KohonenSurfEXE {
 			int qtdImages = dataBase.size();			
 			PrecisionRecall pr = new PrecisionRecall(qtdImages);
 			double t0 = System.currentTimeMillis();
+			int histogramaClasse[] = Util.Util.contarClasse(dataBase);
 
 
 			for (Image image : dataBase) {
@@ -59,7 +60,7 @@ public class KohonenSurfEXE {
 				acuracyTax += somClassificator.getAcuracyTax();
 				count++;
 
-				pr.run(5, qtdImages, image, result);
+				pr.run(5, qtdImages, image, result, histogramaClasse);
 				//fazer calculo do precision recall
 				//salvar resultados
 
