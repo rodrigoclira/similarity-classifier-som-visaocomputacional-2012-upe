@@ -1,5 +1,7 @@
 package Util;
 
+import java.util.ArrayList;
+
 public class Util {
 	
 	public static double euclidianDistance(double[] cordinate1, double[] cordinate2){
@@ -13,4 +15,13 @@ public class Util {
 		return Math.sqrt(sqDistance);
 
 	}
+	
+	public static Integer[] contarClasse(ArrayList<> arrayImages){
+		
+		Integer qtdClasse[] = new Integer(arrayImages.get(arrayImages.size() - 1));
+		
+		for(Image img : arrayImages){
+		}
+	}
+	
 }
