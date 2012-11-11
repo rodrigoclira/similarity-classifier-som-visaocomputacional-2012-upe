@@ -35,7 +35,7 @@ public class KMeansKohonenExe {
 			ArrayList<Image> dataBase = xml.getImages();
 
 			int qtdImages = dataBase.size();			
-			PrecisionRecall pr = new PrecisionRecall();
+			PrecisionRecall pr = new PrecisionRecall(qtdImages);
 			double t0 = System.currentTimeMillis();
 
 
