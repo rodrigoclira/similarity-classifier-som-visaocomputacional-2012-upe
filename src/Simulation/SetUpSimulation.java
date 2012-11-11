@@ -23,15 +23,14 @@ public class SetUpSimulation {
 			
 			xml.normalizarArray(0.1, 0.9);
 			ArrayList<Image> dataBase = xml.getImages();
-
+			int qtdImages = dataBase.size();
+			
 			for(int mapsize = 4 ; mapsize <= 12 ; mapsize+=1){
 				
 				
 				acuracyTax = 0.0;
 				count = 0;
-				Double precision[] = new Double[191];
-				Double recall[] = new Double[191];
-				PrecisionRecall pr = new PrecisionRecall();
+				PrecisionRecall pr = new PrecisionRecall(qtdImages);
 				double t0 = System.currentTimeMillis();
 
 				
@@ -60,7 +59,7 @@ public class SetUpSimulation {
 					acuracyTax += somClassificator.getAcuracyTax();
 					count++;
 					
-					pr.run(5, 960, image, result);
+					pr.run(5, qtdImages, image, result);
 					//fazer calculo do precision recall
 					//salvar resultados
 

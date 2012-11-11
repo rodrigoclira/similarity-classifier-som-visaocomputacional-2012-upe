@@ -25,9 +25,7 @@ public class KohonenSimulationSurf {
 			xml.normalizarArray(0.1, 0.9);
 			ArrayList<Image> dataBase = xml.getImages();
 			int qtdImages = dataBase.size();
-			Double precision[] = new Double[191];
-			Double recall[] = new Double[191];
-			PrecisionRecall pr = new PrecisionRecall();
+			PrecisionRecall pr = new PrecisionRecall(qtdImages);
 			double t0 = System.currentTimeMillis();
 
 
