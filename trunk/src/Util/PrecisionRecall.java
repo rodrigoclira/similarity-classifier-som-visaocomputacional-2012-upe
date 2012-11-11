@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Classification.Classificator;
-import Classification.Image;
 
 
 public class PrecisionRecall {
@@ -28,7 +27,7 @@ public class PrecisionRecall {
 			pointsPrecision.add(0.0);
 			pointsRecall.add(0.0);
 		}
-
+		
 	}
 
 	public void temp(){
