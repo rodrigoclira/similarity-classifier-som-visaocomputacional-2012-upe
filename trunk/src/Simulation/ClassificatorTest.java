@@ -13,7 +13,7 @@ import SOM.SOM;
 
 public class ClassificatorTest {
 
-	//simulação de kohonen com as características da primeira parte
+	//simulaï¿½ï¿½o de kohonen com as caracterï¿½sticas da primeira parte
 	/**
 	 * @param args
 	 */
@@ -25,11 +25,9 @@ public class ClassificatorTest {
 			String resultFolder = "src//Results//"; 
 			ImageXMLReader xml = new ImageXMLReader("src//xml//images.xml");
 			xml.normalizarArray(0.1, 0.9);
-			ArrayList<Image> dataBase = xml.getImages();
-
-			Double precision[] = new Double[191];
-			Double recall[] = new Double[191];
-			PrecisionRecall pr = new PrecisionRecall();
+			ArrayList<java.awt.Image> dataBase = xml.getImages();
+			int qtdImagens = dataBase.size();
+			PrecisionRecall pr = new PrecisionRecall(qtdImagens);
 			double t0 = System.currentTimeMillis();
 
 
@@ -57,7 +55,7 @@ public class ClassificatorTest {
 				acuracyTax += somClassificator.getAcuracyTax();
 				count++;
 
-				pr.run(5, 960, image, result);
+				pr.run(5, qtdImagens, image, result);
 				//fazer calculo do precision recall
 				//salvar resultados
 
