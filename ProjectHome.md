@@ -1,0 +1,1 @@
+Projeto desenvolvido por Rodrigo Santa Cruz e Rodrigo Lira para a disciplina de visão computacional da universidade de pernambuco
